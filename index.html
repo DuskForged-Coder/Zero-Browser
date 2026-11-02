@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZERO Browser</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header id="tab-bar">
+      <div id="tabs"></div>
+      <div class="tab-actions">
+        <button id="incognito-btn" class="tab-action-btn" type="button" title="Open Incognito Tab" aria-label="Open Incognito Tab">◐</button>
+        <button id="new-tab-btn" class="tab-action-btn" type="button" title="New Tab" aria-label="New Tab">+</button>
+      </div>
+    </header>
+
+    <section id="nav-bar">
+      <div class="nav-actions">
+        <button id="back-btn" type="button" title="Back" aria-label="Back">←</button>
+        <button id="forward-btn" type="button" title="Forward" aria-label="Forward">→</button>
+        <button id="reload-btn" type="button" title="Reload" aria-label="Reload">↻</button>
+      </div>
+
+      <div class="url-shell">
+        <span class="url-icon" aria-hidden="true">⌕</span>
+        <input type="text" id="url-bar" placeholder="Search or enter URL" autocomplete="off" spellcheck="false">
+      </div>
+
+      <div class="nav-trailing">
+        <button id="tracker-indicator-btn" class="nav-indicator-btn" type="button" title="Tracker Protection" aria-label="Tracker Protection">
+          <span class="nav-indicator-icon" aria-hidden="true">🛡</span>
+          <span id="tracker-count-label">Trackers Blocked: 0</span>
+        </button>
+        <button id="downloads-btn" class="ghost-btn icon-btn" type="button" title="Downloads" aria-label="Open Downloads">⇩</button>
+        <button id="menu-btn" class="ghost-btn icon-btn" type="button" title="Zero AI" aria-label="Open Zero AI">✦</button>
+        <button id="more-btn" class="ghost-btn icon-btn" type="button" title="More" aria-label="More actions" aria-expanded="false">⋯</button>
+        <div id="nav-menu" class="nav-menu" hidden>
+          <button class="nav-menu-item" type="button" data-menu-action="new-tab">New Tab</button>
+          <button class="nav-menu-item" type="button" data-menu-action="dashboard">Dashboard</button>
+          <button class="nav-menu-item" type="button" data-menu-action="security">Security Center</button>
+          <button class="nav-menu-item" type="button" data-menu-action="ai">Zero AI</button>
+          <button class="nav-menu-item" type="button" data-menu-action="lab">ZERO Lab</button>
+          <button class="nav-menu-item" type="button" data-menu-action="games">Games</button>
+          <button class="nav-menu-item" type="button" data-menu-action="extensions">Extensions</button>
+          <button class="nav-menu-item" type="button" data-menu-action="appearance">Appearance</button>
+          <button class="nav-menu-item" type="button" data-menu-action="notifications">Notifications</button>
+          <button class="nav-menu-item" type="button" data-menu-action="bookmarks">Bookmarks</button>
+          <button class="nav-menu-item" type="button" data-menu-action="history">History</button>
+          <button class="nav-menu-item" type="button" data-menu-action="downloads">Downloads</button>
+          <button class="nav-menu-item" type="button" data-menu-action="focus-url">Focus Search</button>
+          <button class="nav-menu-item" type="button" data-menu-action="toggle-incognito">Toggle Incognito Tab</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="warning-banner" class="warning-banner" hidden>
+      <div class="warning-banner-copy">
+        <strong id="warning-banner-title">Security Notice</strong>
+        <span id="warning-banner-message"></span>
+      </div>
+      <div class="warning-banner-actions">
+        <button id="warning-banner-details-btn" class="secondary-utility-btn" type="button">View Details</button>
+        <button id="warning-banner-dismiss-btn" class="secondary-utility-btn" type="button">Dismiss</button>
+      </div>
+    </section>
+
+    <main id="content">
+      <section id="homepage" class="view active" data-view="home">
+        <div class="starfield" aria-hidden="true"></div>
+        <div class="ambient-line ambient-line-left" aria-hidden="true"></div>
+        <div class="ambient-line ambient-line-right" aria-hidden="true"></div>
+
+        <div class="hero-wrap">
+          <div class="hero-brand-mark" aria-hidden="true">
+            <span class="brand-ring"></span>
+            <span class="brand-slash"></span>
+          </div>
+
+          <div class="hero-copy">
+            <h1>Welcome to ZERO Browser</h1>
+            <div class="hero-divider">
+              <span></span>
+              <p>The Future Starts Here</p>
+              <span></span>
+            </div>
+          </div>
+
+          <div class="feature-grid">
+            <button class="feature-card" type="button" data-home-action="web">
+              <span class="feature-icon">◎</span>
+              <strong>Web</strong>
+              <span>Open the secure browsing environment.</span>
+            </button>
+            <button class="feature-card" type="button" data-home-action="dashboard">
+              <span class="feature-icon">▦</span>
+              <strong>Dashboard</strong>
+              <span>Analytics, activity, privacy, and usage insights.</span>
+            </button>
+            <button class="feature-card" type="button" data-home-action="security">
+              <span class="feature-icon">◈</span>
+              <strong>Security</strong>
+              <span>Threat telemetry, tracker protection, and risk controls.</span>
+            </button>
+            <button id="ai-hub-card" class="feature-card" type="button" data-home-action="ai">
+              <span class="feature-icon">✦</span>
+              <strong>Zero AI</strong>
+              <span>AI assistant with text, speech, and reasoning support.</span>
+            </button>
+            <button class="feature-card" type="button" data-home-action="lab">
+              <span class="feature-icon">⬢</span>
+              <strong>ZERO Lab</strong>
+              <span>Suggest features, report issues, and vote on product ideas.</span>
+            </button>
+            <button class="feature-card" type="button" data-home-action="games">
+              <span class="feature-icon">⌘</span>
+              <strong>Games</strong>
+              <span>Offline-ready Snake, Runner, and puzzle games.</span>
+            </button>
+          </div>
+
+          <div class="hero-metrics">
+            <div class="hero-metric-card">
+              <span>Threat Shield</span>
+              <strong id="hero-threat-count">0 blocked threats</strong>
+            </div>
+            <div class="hero-metric-card">
+              <span>Privacy Score</span>
+              <strong id="hero-privacy-score">100 / 100</strong>
+            </div>
+            <div class="hero-metric-card">
+              <span>Contributor Pulse</span>
+              <strong id="hero-lab-count">0 product ideas</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="dashboard-view" class="view" data-view="dashboard">
+        <div class="view-shell">
+          <div class="view-header">
+            <div>
+              <p class="eyebrow">Usage Command Center</p>
+              <h2>ZERO Dashboard</h2>
+              <p class="view-intro">Session analytics, AI usage, privacy posture, and browsing activity in one place.</p>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <article class="stat-card">
+              <span>Open Tabs</span>
+              <strong id="dashboard-open-tabs">0</strong>
+            </article>
+            <article class="stat-card">
+              <span>Visited Sites</span>
+              <strong id="dashboard-sites-visited">0</strong>
+            </article>
+            <article class="stat-card">
+              <span>AI Prompts</span>
+              <strong id="dashboard-ai-prompts">0</strong>
+            </article>
+            <article class="stat-card">
+              <span>Risk Level</span>
+              <strong id="dashboard-risk-level">Low</strong>
+            </article>
+          </div>
+
+          <div class="dashboard-grid">
+            <article class="panel-card resizable-card">
+              <div class="panel-card-header">
+                <h3>Activity Timeline</h3>
+                <span id="dashboard-activity-count">0 events</span>
+              </div>
+              <div id="dashboard-activity-feed" class="timeline-list"></div>
+            </article>
+
+            <article class="panel-card resizable-card">
+              <div class="panel-card-header">
+                <h3>Suggested Actions</h3>
+                <span>Live recommendations</span>
+              </div>
+              <div id="dashboard-insights" class="insight-list"></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="security-view" class="view" data-view="security">
+        <div class="security-center-shell">
+          <aside class="security-center-sidebar">
+            <div class="security-center-sidebar-head">
+              <p class="eyebrow">Mission Control</p>
+              <h2>ZERO Security Center</h2>
+              <p class="view-intro">Real-time intelligence, protection control, and transparent AI-assisted safety decisions.</p>
+            </div>
+
+            <div class="security-nav">
+              <button class="security-nav-btn active" type="button" data-security-panel="overview">Overview Dashboard</button>
+              <button class="security-nav-btn" type="button" data-security-panel="threats">Threat Monitor</button>
+              <button class="security-nav-btn" type="button" data-security-panel="privacy">Privacy Control</button>
+              <button class="security-nav-btn" type="button" data-security-panel="analysis">AI Analysis</button>
+              <button class="security-nav-btn" type="button" data-security-panel="extensions">Extensions Security</button>
+              <button class="security-nav-btn" type="button" data-security-panel="settings">Settings</button>
+            </div>
+
+            <div class="security-sidebar-note">
+              <strong>Best Effort Protection</strong>
+              <span>ZERO uses Chromium security hooks and browser-level analysis. Some sites may limit inspection due to CSP or permission constraints.</span>
+            </div>
+          </aside>
+
+          <section class="security-center-main">
+            <div class="security-center-summary">
+              <article class="security-summary-card danger">
+                <span>Threat Shield</span>
+                <strong id="security-threat-attempts">0</strong>
+              </article>
+              <article class="security-summary-card">
+                <span>Trackers Blocked</span>
+                <strong id="security-trackers-blocked">0</strong>
+              </article>
+              <article class="security-summary-card">
+                <span>Privacy Score</span>
+                <strong id="security-privacy-score">100</strong>
+              </article>
+              <article class="security-summary-card">
+                <span>Risk Level</span>
+                <strong id="security-risk-level">Low</strong>
+              </article>
+            </div>
+
+            <section id="security-panel-overview" class="security-panel active" data-security-panel-view="overview">
+              <div class="security-panel-header">
+                <div>
+                  <p class="eyebrow">Overview Dashboard</p>
+                  <h3>Security Command Overview</h3>
+                </div>
+                <div class="security-quick-actions">
+                  <button id="security-strict-mode-btn" class="secondary-utility-btn" type="button">Enable Strict Mode</button>
+                  <button id="security-quick-scan-btn" class="secondary-utility-btn" type="button">Run Quick Scan</button>
+                  <button id="security-clear-tracking-btn" class="secondary-utility-btn" type="button">Clear Tracking Data</button>
+                </div>
+              </div>
+
+              <div class="security-overview-grid">
+                <article class="panel-card">
+                  <div class="panel-card-header">
+                    <h3>Protection Modules</h3>
+                    <span>Always on</span>
+                  </div>
+                  <div id="security-modules" class="security-modules"></div>
+                </article>
+
+                <article class="panel-card">
+                  <div class="panel-card-header">
+                    <h3>Live Summary</h3>
+                    <span>Minimal telemetry</span>
+                  </div>
+                  <div id="security-overview-insights" class="insight-list"></div>
+                </article>
+              </div>
+            </section>
+
+            <section id="security-panel-threats" class="security-panel" data-security-panel-view="threats">
+              <div class="security-panel-header">
+                <div>
+                  <p class="eyebrow">Threat Monitor</p>
+                  <h3>Threat Feed</h3>
+                </div>
+                <span id="security-log-count">0 entries</span>
+              </div>
+
+              <div class="security-toolbar">
+                <input id="security-threat-search" type="text" placeholder="Search threats">
+                <select id="security-threat-filter">
+                  <option value="all">All Threats</option>
+                  <option value="tracking">Tracking</option>
+                  <option value="scam">Scam</option>
+                  <option value="manipulation">Manipulation</option>
+                  <option value="navigation">Navigation</option>
+                </select>
+              </div>
+
+              <div id="security-threat-group" class="security-threat-group"></div>
+              <div id="security-log" class="threat-log"></div>
+            </section>
+
+            <section id="security-panel-privacy" class="security-panel" data-security-panel-view="privacy">
+              <div class="security-panel-header">
+                <div>
+                  <p class="eyebrow">Privacy Control</p>
+                  <h3>Protection Modes & Controls</h3>
+                </div>
+              </div>
+
+              <div class="security-settings-grid">
+                <article class="panel-card">
+                  <div class="panel-card-header">
+                    <h3>Protection Mode</h3>
+                    <span>User controlled</span>
+                  </div>
+                  <div class="security-control-list">
+                    <label class="security-control-row"><input type="radio" name="privacy-mode" value="Strict Privacy Mode"> Strict Mode</label>
+                    <label class="security-control-row"><input type="radio" name="privacy-mode" value="Balanced Mode"> Balanced Mode</label>
+                    <label class="security-control-row"><input type="radio" name="privacy-mode" value="Relaxed Mode"> Relaxed Mode</label>
+                  </div>
+                </article>
+
+                <article class="panel-card">
+                  <div class="panel-card-header">
+                    <h3>Blocking Controls</h3>
+                    <span>What is being blocked right now</span>
+                  </div>
+                  <div class="security-control-list">
+                    <label class="security-control-row"><input id="privacy-block-trackers" type="checkbox"> Block trackers</label>
+                    <label class="security-control-row"><input id="privacy-block-cookies" type="checkbox"> Block third-party cookies</label>
+                    <label class="security-control-row"><input id="privacy-block-fingerprinting" type="checkbox"> Anti-fingerprinting</label>
+                    <button id="privacy-clear-browsing-data" class="secondary-utility-btn" type="button">Clear Browsing Data</button>
+                  </div>
+                </article>
+              </div>
+
+              <article class="panel-card">
+                <div class="panel-card-header">
+                  <h3>Current Blocking Status</h3>
+                  <span>Transparent system state</span>
+                </div>
+                <div id="privacy-current-status" class="security-modules"></div>
+              </article>
+            </section>
+
+            <section id="security-panel-analysis" class="security-panel" data-security-panel-view="analysis">
+              <div class="security-panel-header">
+                <div>
+                  <p class="eyebrow">AI Analysis</p>
+                  <h3>Why Something Was Flagged</h3>
+                </div>
+              </div>
+              <div id="security-ai-analysis" class="security-analysis-list"></div>
+            </section>
+
+            <section id="security-panel-extensions" class="security-panel" data-security-panel-view="extensions">
+              <div class="security-panel-header">
+                <div>
+                  <p class="eyebrow">Extensions Security</p>
+                  <h3>Extension Risk & Activity</h3>
+                </div>
+              </div>
+              <div id="security-extensions-security" class="extensions-list"></div>
+            </section>
+
+            <section id="security-panel-settings" class="security-panel" data-security-panel-view="settings">
+              <div class="security-panel-header">
+                <div>
+                  <p class="eyebrow">Security Settings</p>
+                  <h3>AI, Notifications, and Data Mode</h3>
+                </div>
+              </div>
+
+              <div class="security-settings-grid">
+                <article class="panel-card">
+                  <div class="panel-card-header">
+                    <h3>AI Sensitivity</h3>
+                    <span>False positive control</span>
+                  </div>
+                  <select id="security-ai-sensitivity">
+                    <option value="Low">Low</option>
+                    <option value="Medium" selected>Medium</option>
+                    <option value="High">High</option>
+                  </select>
+                </article>
+
+                <article class="panel-card">
+                  <div class="panel-card-header">
+                    <h3>Notification Style</h3>
+                    <span>Compact by default</span>
+                  </div>
+                  <select id="security-notification-style">
+                    <option value="Compact">Compact</option>
+                    <option value="Detailed">Detailed</option>
+                    <option value="Minimal">Minimal</option>
+                  </select>
+                </article>
+
+                <article class="panel-card">
+                  <div class="panel-card-header">
+                    <h3>Data Usage Mode</h3>
+                    <span>Transparent tradeoffs</span>
+                  </div>
+                  <select id="security-data-usage-mode">
+                    <option value="Local only">Local only</option>
+                    <option value="Hybrid AI" selected>Hybrid AI</option>
+                    <option value="Cloud enhanced">Cloud enhanced</option>
+                  </select>
+                </article>
+              </div>
+            </section>
+          </section>
+        </div>
+      </section>
+
+      <section id="ai-hub" class="view" data-view="ai">
+        <div class="ai-hub-shell">
+          <aside class="ai-sidebar">
+            <div class="ai-sidebar-header">
+              <div class="hero-brand-mark ai-brand-mark" aria-hidden="true">
+                <span class="brand-ring"></span>
+                <span class="brand-slash"></span>
+              </div>
+              <div>
+                <h2>Zero AI</h2>
+                <p>Focused AI workspace powered by local Ollama.</p>
+              </div>
+            </div>
+
+            <div class="ai-sidebar-list">
+              <button class="ai-sidebar-item" type="button">
+                <span class="ai-sidebar-icon">◎</span>
+                <div>
+                  <strong>Text AI</strong>
+                  <span>Ask, summarize, generate.</span>
+                </div>
+              </button>
+              <button class="ai-sidebar-item" type="button">
+                <span class="ai-sidebar-icon">◌</span>
+                <div>
+                  <strong>Voice Input</strong>
+                  <span>Live transcription.</span>
+                </div>
+              </button>
+              <button class="ai-sidebar-item" type="button">
+                <span class="ai-sidebar-icon">◈</span>
+                <div>
+                  <strong>Security Insights</strong>
+                  <span>Explain AI flags.</span>
+                </div>
+              </button>
+            </div>
+          </aside>
+
+          <div id="ai-resize-handle" class="resize-handle vertical" aria-hidden="true"></div>
+
+          <section class="ai-chat-panel">
+            <div class="ai-chat-header">
+              <div>
+                <h3>ZERO AI</h3>
+                <p id="ai-status">ZERO AI • Connected to Ollama</p>
+              </div>
+              <div class="ai-header-actions">
+                <button id="ai-clear-btn" class="ghost-btn icon-btn" type="button" aria-label="Clear chat">×</button>
+                <button id="ai-settings-btn" class="ghost-btn icon-btn" type="button" aria-label="AI settings">⚙</button>
+              </div>
+            </div>
+
+            <div id="ai-messages" class="ai-messages">
+              <div class="ai-message assistant">
+                <div class="ai-message-badge">AI</div>
+                <div class="ai-message-card">
+                  <p>Hello. Ask anything, dictate a prompt, or paste a problem here.</p>
+                  <div class="ai-equation">E = mc^2</div>
+                  <p>For clearer math, I will separate equations into dedicated blocks when needed.</p>
+                </div>
+              </div>
+            </div>
+
+            <form id="ai-form" class="ai-composer">
+              <label class="sr-only" for="ai-prompt">AI prompt</label>
+              <div id="ai-input-bar" class="ai-input-bar">
+                <button id="ai-mic-btn" class="ai-icon-btn" type="button" aria-label="Start voice">◎</button>
+                <textarea id="ai-prompt" placeholder="Type a message..." rows="1"></textarea>
+                <button id="ai-send-btn" class="ai-icon-btn send" type="submit" aria-label="Send">➤</button>
+              </div>
+              <div class="ai-voice-row">
+                <span id="ai-voice-state" class="ai-voice-state">Start Voice</span>
+                <span id="ai-typing" class="ai-typing" hidden>ZERO AI is thinking...</span>
+              </div>
+            </form>
+          </section>
+
+          <aside class="ai-right-panel">
+            <div class="panel-card">
+              <div class="panel-card-header">
+                <h3>Insights</h3>
+                <span>Contextual details</span>
+              </div>
+              <div id="ai-insights-list" class="insight-list"></div>
+            </div>
+            <div class="panel-card">
+              <div class="panel-card-header">
+                <h3>Quick Tools</h3>
+                <span>Shortcuts</span>
+              </div>
+              <div class="ai-tool-list">
+                <button class="secondary-utility-btn" type="button">Summarize Page</button>
+                <button class="secondary-utility-btn" type="button">Explain Threats</button>
+                <button class="secondary-utility-btn" type="button">Generate Checklist</button>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="lab-view" class="view" data-view="lab">
+        <div class="view-shell">
+          <div class="view-header">
+            <div>
+              <p class="eyebrow">Community Research</p>
+              <h2>ZERO Lab</h2>
+              <p class="view-intro">Submit ONIX research feedback, suggest features, report issues, and vote on the roadmap.</p>
+            </div>
+          </div>
+
+          <div class="lab-grid">
+            <article class="panel-card">
+              <div class="panel-card-header">
+                <h3>Submit Feedback</h3>
+                <span>Direct product signal</span>
+              </div>
+              <form id="lab-form" class="lab-form">
+                <label>
+                  <span>Name</span>
+                  <input id="lab-name" type="text" placeholder="Contributor name">
+                </label>
+                <label>
+                  <span>Type</span>
+                  <select id="lab-type">
+                    <option value="Feature">Feature</option>
+                    <option value="Issue">Issue</option>
+                    <option value="Research">Research</option>
+                  </select>
+                </label>
+                <label>
+                  <span>Title</span>
+                  <input id="lab-title" type="text" placeholder="Short summary">
+                </label>
+                <label>
+                  <span>Details</span>
+                  <textarea id="lab-description" placeholder="Describe the idea, issue, or insight"></textarea>
+                </label>
+                <button class="ai-send-btn" type="submit">Submit to ZERO Lab</button>
+              </form>
+            </article>
+
+            <article class="panel-card">
+              <div class="panel-card-header">
+                <h3>Open Ideas</h3>
+                <span id="lab-ideas-count">0 items</span>
+              </div>
+              <div id="lab-ideas" class="lab-ideas"></div>
+            </article>
+
+            <article class="panel-card">
+              <div class="panel-card-header">
+                <h3>ZERO Product Contributors</h3>
+                <span>Top voted contributors</span>
+              </div>
+              <div id="lab-contributors" class="contributors-list"></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="games-view" class="view" data-view="games">
+        <div class="view-shell">
+          <div class="view-header">
+            <div>
+              <p class="eyebrow">Offline Recreation</p>
+              <h2>ZERO Arcade</h2>
+              <p class="view-intro">Available online and offline with instant access when network connectivity drops.</p>
+            </div>
+            <div class="online-chip" id="connectivity-chip">Online</div>
+          </div>
+
+          <div class="games-grid">
+            <article class="panel-card">
+              <div class="panel-card-header">
+                <h3>Snake</h3>
+                <button id="snake-start-btn" class="secondary-utility-btn" type="button">Start</button>
+              </div>
+              <canvas id="snake-canvas" width="320" height="320"></canvas>
+              <p id="snake-status" class="game-status">Use arrow keys to move.</p>
+            </article>
+
+            <article class="panel-card">
+              <div class="panel-card-header">
+                <h3>Runner</h3>
+                <button id="runner-start-btn" class="secondary-utility-btn" type="button">Start</button>
+              </div>
+              <canvas id="runner-canvas" width="420" height="180"></canvas>
+              <p id="runner-status" class="game-status">Press space to jump.</p>
+            </article>
+
+            <article class="panel-card">
+              <div class="panel-card-header">
+                <h3>Puzzle Grid</h3>
+                <button id="puzzle-reset-btn" class="secondary-utility-btn" type="button">Shuffle</button>
+              </div>
+              <div id="puzzle-grid" class="puzzle-grid"></div>
+              <p id="puzzle-status" class="game-status">Arrange the numbers from 1 to 15.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="extensions-view" class="view" data-view="extensions">
+        <div class="view-shell">
+          <div class="view-header">
+            <div>
+              <p class="eyebrow">Extension System</p>
+              <h2>Extension Manager</h2>
+              <p class="view-intro">Manifest V3 focused compatibility with transparent security scanning and best-effort support.</p>
+            </div>
+          </div>
+
+          <div class="extensions-grid">
+            <article class="panel-card">
+              <div class="panel-card-header">
+                <h3>Install Extension</h3>
+                <span>Basic Chrome + ZERO compatibility</span>
+              </div>
+              <form id="extension-form" class="lab-form">
+                <label>
+                  <span>Name</span>
+                  <input id="extension-name" type="text" placeholder="Extension name">
+                </label>
+                <label>
+                  <span>Manifest Version</span>
+                  <select id="extension-manifest-version">
+                    <option value="3">Manifest V3</option>
+                    <option value="2">Manifest V2</option>
+                  </select>
+                </label>
+                <label>
+                  <span>Permissions</span>
+                  <input id="extension-permissions" type="text" placeholder="tabs, storage, scripting">
+                </label>
+                <label>
+                  <span>Source</span>
+                  <select id="extension-source">
+                    <option value="chrome">Chrome Extension</option>
+                    <option value="zero">ZERO Extension</option>
+                  </select>
+                </label>
+                <button class="ai-send-btn" type="submit">Install Extension</button>
+              </form>
+            </article>
+
+            <article class="panel-card">
+              <div class="panel-card-header">
+                <h3>Installed Extensions</h3>
+                <span id="extensions-count">0 installed</span>
+              </div>
+              <div id="extensions-list" class="extensions-list"></div>
+            </article>
+
+            <article class="panel-card">
+              <div class="panel-card-header">
+                <h3>Compatibility & Limits</h3>
+                <span>Trustworthy defaults</span>
+              </div>
+              <div id="extension-transparency" class="transparency-list">
+                <div class="drawer-item">
+                  <strong>Best Effort Protection</strong>
+                  <span class="drawer-item-meta">ZERO uses Chromium APIs, not OS-level hooks. Some trackers and extension behaviors cannot be fully intercepted.</span>
+                </div>
+                <div class="drawer-item">
+                  <strong>Manifest Support</strong>
+                  <span class="drawer-item-meta">Manifest V3 is prioritized. Chrome-specific APIs may be partially supported or unsupported.</span>
+                </div>
+                <div class="drawer-item">
+                  <strong>Permission Transparency</strong>
+                  <span class="drawer-item-meta">Every extension shows requested permissions, compatibility badge, and a local scan summary before activation.</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="web-view" class="view" data-view="web">
+        <div id="webview-stack"></div>
+      </section>
+    </main>
+
+    <aside id="utility-drawer" class="utility-drawer" hidden>
+      <div id="drawer-resize-handle" class="resize-handle drawer-resize" aria-hidden="true"></div>
+      <div class="drawer-header">
+        <div>
+          <p class="eyebrow" id="drawer-eyebrow">Session Panel</p>
+          <h3 id="drawer-title">Details</h3>
+        </div>
+        <button id="drawer-close-btn" class="ghost-btn icon-btn" type="button" aria-label="Close panel">×</button>
+      </div>
+      <div id="drawer-body" class="drawer-body"></div>
+    </aside>
+
+    <div id="warning-center" class="warning-center"></div>
+
+    <div id="decision-modal" class="decision-modal" hidden>
+      <div class="decision-card">
+        <span class="decision-badge">Security Review</span>
+        <h3 id="decision-title">Warning</h3>
+        <p id="decision-message"></p>
+        <div id="decision-details" class="decision-details"></div>
+        <div class="decision-actions">
+          <button id="decision-cancel-btn" class="secondary-utility-btn" type="button">Cancel</button>
+          <button id="decision-confirm-btn" class="ai-send-btn" type="button">Continue</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
